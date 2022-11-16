@@ -106,3 +106,19 @@ contract Timelock {
 
     receive() external payable {}
 }
+
+contract TestTimeLock {
+    address public timelock;
+
+    constructor(address _timelock) {
+        timelock = _timelock;
+    }
+
+    function test() external {
+        require(msg.sender == timelock);
+    }
+
+    function getTimestamp() external view returns (uint) {
+        return block.timestamp + 100;
+    }
+}
