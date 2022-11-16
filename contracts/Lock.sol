@@ -3,10 +3,12 @@ pragma solidity ^0.8.17;
 
 import "hardhat/console.sol";
 
+/**
+    @title
+    Purpose is to prevent transaction from taking place until a time frame has elapsed,
+    in that time, user should be able to cancel the transaction.
+*/
 contract Timelock {
-    // purpose is to prevent transaction from taking place until a time frame has elapsed
-    // in that time, user should be able to cancel the transaction
-
     address public owner;
 
     constructor() {
@@ -114,7 +116,7 @@ contract TestTimeLock {
         timelock = _timelock;
     }
 
-    function test() external {
+    function test() external view {
         require(msg.sender == timelock);
     }
 
