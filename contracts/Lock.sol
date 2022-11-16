@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import "hardhat/console.sol";
 
 /**
-    @title
+    @dev
     Purpose is to prevent transaction from taking place until a time frame has elapsed,
     in that time, user should be able to cancel the transaction.
 */
@@ -31,6 +31,7 @@ contract Timelock {
         _;
     }
 
+    /// @dev This function adds a transaction to a queue
     function addToTxnQueue(
         uint _timestamp,
         address _contractAddress,
@@ -49,6 +50,7 @@ contract Timelock {
         txnQueue[txnId] = true;
     }
 
+    /// @dev This function removes a transaction from a queue / cancels txn
     function removeFromTxnQueue(bytes32 _txnId, uint _timestamp) external onlyOwner {
         if (!txnQueue[_txnId]) {
             revert TxnDoesNotExistOnQueue(_txnId);
@@ -61,6 +63,7 @@ contract Timelock {
         txnQueue[_txnId] = false;
     }
 
+    /// @dev This function executes the transaction
     function executeTxn(
         uint _timestamp,
         address _contractAddress,
@@ -109,6 +112,7 @@ contract Timelock {
     receive() external payable {}
 }
 
+///@dev Will be used to test contract
 contract TestTimeLock {
     address public timelock;
 
