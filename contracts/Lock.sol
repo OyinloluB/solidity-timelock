@@ -29,7 +29,13 @@ contract Timelock {
         _;
     }
 
-    function addToTxnQueue(uint _timestamp, address _contractAddress, string calldata _function, uint _value, bytes calldata _data) external onlyOwner returns (bytes32 txnId) {
+    function addToTxnQueue(
+        uint _timestamp,
+        address _contractAddress,
+        string calldata _function,
+        uint _value,
+        bytes calldata _data
+    ) external onlyOwner returns (bytes32 txnId) {
         // get txnId
         bytes32 txnId = keccak256(abi.encode(_timestamp, _contractAddress, _function, _value, _data));
         // check if txn has already been queued
@@ -53,7 +59,13 @@ contract Timelock {
         txnQueue[_txnId] = false;
     }
 
-    function executeTxn(uint _timestamp, address _contractAddress, string calldata _function, uint _value, bytes calldata _data) external payable onlyOwner returns (bytes memory) {
+    function executeTxn(
+        uint _timestamp,
+        address _contractAddress,
+        string calldata _function, 
+        uint _value,
+        bytes calldata _data
+    ) external payable onlyOwner returns (bytes memory) {
         // get txnId
         bytes32 txnId = keccak256(abi.encode(_timestamp, _contractAddress, _function, _value, _data));
         //check if txn has been queued
